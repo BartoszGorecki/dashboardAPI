@@ -1,0 +1,33 @@
+.btn {
+  background: white;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  margin: 10px;
+  padding: 10px 20px;
+}
+
+.add {
+  background: blue;
+}
+
+.cancel {
+  border: 1px solid red;
+  color: red;
+}
+
+.cancelM {
+  background: gray;
+}
+
+.delete {
+  background: red;
+}
+
+.edit {
+  background: orange;
+}
+
+.submit {
+  background: green;
+}
