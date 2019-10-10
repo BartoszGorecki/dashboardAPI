@@ -7,7 +7,7 @@ import { editUserAPI, setSelectedUser } from '../../action';
 import Button from '../Button';
 import Input from '../Input';
 
-const EDIT_USER = "Edit user"
+const EDIT_USER = "Edit user";
 
 class EditUser extends Component {
     state = {
@@ -24,7 +24,9 @@ class EditUser extends Component {
             this.props.history.push('/');
             return;
         }
-        const { address: { city }, email, name, username } = this.props.selectedUser;
+        const { email, name } = this.props.selectedUser;
+        const city = this.props.selectedUser.address ? this.props.selectedUser.address.city : '';
+        const username = this.props.selectedUser.username || '';
         this.setState({ user: { city, email, name, username } });
     }
 
