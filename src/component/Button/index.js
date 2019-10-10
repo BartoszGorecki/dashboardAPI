@@ -5,13 +5,15 @@ import { validBtnText, validBtnVariant } from '../../utility/constant';
 
 import './button.css';
 
-const Button = ({variant, onClick, text, type}) => {
+const Button = ({ variant, onClick, text, type }) => {
     return (
-        <button type={type} className={ 'btn ' + variant } onClick={ onClick }>{ text }</button>
+        <button type={ type } className={ 'btn ' + variant } onClick={ onClick }>
+            { text }
+        </button>
     );
-}
+};
 
-Button.displayName = 'Button'
+Button.displayName = 'Button';
 
 Button.propTypes = {
     onClick: PropTypes.func,
@@ -23,6 +25,6 @@ Button.propTypes = {
 Button.defaultProps = {
     onClick: () => {},
     type: 'button'
-  };
+};
 
 export default Button;

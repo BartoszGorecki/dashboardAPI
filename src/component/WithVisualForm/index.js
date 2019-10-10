@@ -8,20 +8,22 @@ export default (Comp, title) => {
 
         goToCreateUserPage = () => this.props.history.push('/add');
 
+        showButton = () => title === undefined || title === 'Users';
+
         renderMenuContext = () => {
             return (
                 <div className='menuContext'>
                     <span>{ title || 'Users' }</span>
-                    <Button 
+                    { this.showButton() && <Button 
                         onClick={ () => this.goToCreateUserPage() }
                         text='Add new'
                         variant='add'
-                    />
+                    /> }
                 </div>
             );
         }
         
-        render(){
+        render() {
             return (
                 <div className='contentWrapper'>
                     { this.renderMenuContext() }

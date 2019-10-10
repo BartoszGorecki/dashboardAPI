@@ -8,6 +8,8 @@ import { addUserAPI } from '../../action';
 import Button from '../Button';
 import Input from '../Input';
 
+import './addUser.css';
+
 const ADD_USER = 'Add user';
 
 class AddUser extends Component {
