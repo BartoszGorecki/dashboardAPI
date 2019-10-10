@@ -10,6 +10,9 @@ import Input from '../Input';
 const EDIT_USER = "Edit user";
 
 class EditUser extends Component {
+
+    static displayName = 'Edituser';
+
     state = {
         user: {
             city: '',
