@@ -41,6 +41,12 @@ export const editUserInputs = [
 
 export const baseUrl = 'https://jsonplaceholder.typicode.com/users';
 
+export const errors = {
+    email: 'Email is required',
+    name: 'Name is required',
+    username: 'Username is required'
+};
+
 export const tableHeader = ['id', 'name', 'username', 'email', 'city', 'edit', 'delete'];
 
 export const validBtnText = ['Add new', 'Cancel', 'Delete', 'Edit', 'Submit'];

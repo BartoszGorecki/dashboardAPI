@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 
 import './input.css';
 
-const Input = ({ name, onChange, title, type, value }) => {
+const Input = ({ formErrors, name, onChange, title, type, value }) => {
     return (  
         <div className="form-group">
-            <label htmlFor={name} className="form-label">{ title }</label>
+            <label htmlFor={ name } className="form-label">{ title }</label>
             <input
                 className="form-input"
                 id={ name }
@@ -15,11 +15,19 @@ const Input = ({ name, onChange, title, type, value }) => {
                 value={ value }
                 onChange={ onChange }
             />
+            { !!formErrors[name] && <span className='form-error'>{ formErrors[name] }</span> }
         </div>
     );
 }
 
+Input.displayName = 'Input';
+
 Input.propTypes = {
+    formErrors: PropTypes.shape({
+        email: PropTypes.string,
+        name: PropTypes.string,
+        username: PropTypes.string
+    }).isRequired,
     name: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,

@@ -30,6 +30,8 @@ const DeleteUserModal = ({ children, onCloseModal, onDeleteUser }) => {
     );
 }
 
+DeleteUserModal.displayName = 'DeleteUserModal';
+
 DeleteUserModal.propTypes = {
     children: PropTypes.node.isRequired,
     onCloseModal: PropTypes.func.isRequired,

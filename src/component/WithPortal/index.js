@@ -24,7 +24,7 @@ const withPortal = Modal => {
 
     render() {
       return ReactDOM.createPortal(<Modal { ...this.props } />, this.container);
-    }
+    };
   };
 }
 

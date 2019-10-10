@@ -1,11 +1,22 @@
+.form-error {
+  bottom: -18px;
+  color: red;
+  font-size: 12px;
+  left: 35%;
+  position: absolute;
+}
+
 .form-group {
   display: flex;
   margin: 40px auto;
   min-width: 300px;
+  position: relative;
   width: 80%;
 }
 
 .form-input {
+  border: 2px solid gray;
+  border-radius: 2px;
   height: 40px;
   width: 65%;
 }

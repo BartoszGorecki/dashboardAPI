@@ -11,11 +11,11 @@ import WithPortal from '../WithPortal';
 
 import './usersDashboard.css';
 
-const NO_DATA = 'no data';
+const NO_DATA = 'no information';
 
 export class UsersDashboard extends Component {
 
-    static displayName = 'UserDashboard Page';
+    static displayName = 'UserDashboard';
 
     state = {
         setSort: false,
@@ -85,16 +85,17 @@ export class UsersDashboard extends Component {
             usersData = this.props.users.sort((a, b) => b.username.localeCompare(a.username));
         }
         return usersData.map(user => {
+            const isStarterData = ("" + user.id).length <= 2;
             return (
                 <tr key={ user.id }>
                     <td>{ user.id }</td>
                     <td>{ user.name }</td>
-                    <td>{ user.username ? user.username : <span style={{ color: 'red' }}>{ NO_DATA }</span> }</td>
+                    <td>{ user.username ? user.username : NO_DATA }</td>
                     <td>{ user.email }</td>
-                    <td>{ user.address ? user.address.city : <span style={{ color: 'red' }}>{ NO_DATA }</span> }</td>
+                    <td>{ user.address ? user.address.city : NO_DATA }</td>
                     <td>
                         <Button 
-                            onClick={ () => this.goToEditPage(user) }
+                            onClick={ isStarterData ? () => this.goToEditPage(user) : () => alert('You cannot modify custom user!')}
                             text='Edit'
                             variant='edit'
                         />

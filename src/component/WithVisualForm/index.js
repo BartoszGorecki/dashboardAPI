@@ -32,6 +32,6 @@ export default (Comp, title) => {
                     <Comp {...this.props} />
                 </div>
             );
-        }
-    } 
-}
+        };
+    };
+};
