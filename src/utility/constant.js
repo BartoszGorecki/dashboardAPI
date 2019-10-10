@@ -1,3 +1,16 @@
+export const addUserInputs = [
+    {
+        name: 'name',
+        title: 'Name',
+        type: 'text'
+    },
+    {
+        name: 'email',
+        title: 'Email',
+        type: 'text'
+    }
+]
+
 export const baseUrl = 'https://jsonplaceholder.typicode.com/users';
 
 export const tableHeader = ['id', 'name', 'username', 'email', 'city', 'edit', 'delete'];

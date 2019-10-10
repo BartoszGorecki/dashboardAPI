@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { deleteUserAPI, fetchUsersAPI } from '../../action';
 import { tableHeader } from '../../utility/constant';
+import { confirmationText } from '../../utility/function';
 
 import Button from '../Button';
 import DeleteUserModal from '../DeleteUserModal';
+import WithVisualForm from '../WithVisualForm';
 import WithPortal from '../WithPortal';
 
 import './usersDashboard.css';
+
+const NO_DATA = 'no data';
 
 export class UsersDashboard extends Component {
 
@@ -19,7 +23,7 @@ export class UsersDashboard extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchUsersAPI();
+        this.props.users.length === 0 && this.props.fetchUsersAPI();
     }
 
     closeModal = () => this.setState({ showPortal: false });
@@ -42,7 +46,7 @@ export class UsersDashboard extends Component {
     renderDeleteTextContext = () => {
         const { username } = this.state.selectedUser;
         return (
-            <div>Are you sure that you want to remove user { username }?</div>
+            <div>{ confirmationText(username) }</div>
         )
     }
 
@@ -60,9 +64,9 @@ export class UsersDashboard extends Component {
                 <tr key={ user.id }>
                     <td>{ user.id }</td>
                     <td>{ user.name }</td>
-                    <td>{ user.username }</td>
+                    <td>{ user.username ? user.username : <span style={{color: 'red'}}>{NO_DATA}</span> }</td>
                     <td>{ user.email }</td>
-                    <td>{ user.address.city }</td>
+                    <td>{ user.address ? user.address.city : <span style={{color: 'red'}}>{NO_DATA}</span> }</td>
                     <td>
                         <Button 
                             onClick={ () => this.goToEditPage(user) }
@@ -86,24 +90,26 @@ export class UsersDashboard extends Component {
         const { showPortal } = this.state;
         const Portal = WithPortal(DeleteUserModal);
         return (
-            <div>
-                <table>
-                    <thead>
-                        <tr>
-                            { this.renderTableHeader() }
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { !!this.props.users.length && this.renderTableData() }
-                    </tbody>
-                </table>
+            <>
+                <div className='tableWrapper'>
+                    <table>
+                        <thead>
+                            <tr>
+                                { this.renderTableHeader() }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            { !!this.props.users.length && this.renderTableData() }
+                        </tbody>
+                    </table>
+                </div>
                 { showPortal && <Portal
                     onCloseModal={ this.closeModal }
                     onDeleteUser={ this.deleteUser }
                 >
                     { this.renderDeleteTextContext() }
                 </Portal> }
-            </div>
+            </>
         );
     }
 }
@@ -112,4 +118,6 @@ const mapStateToProps = state => ({
     users: state.dashboard.users
 });
 
-export default connect(mapStateToProps, { deleteUserAPI, fetchUsersAPI })(UsersDashboard);
+const wrappedUsersDashboard = WithVisualForm(UsersDashboard);
+
+export default connect(mapStateToProps, { deleteUserAPI, fetchUsersAPI })(wrappedUsersDashboard);

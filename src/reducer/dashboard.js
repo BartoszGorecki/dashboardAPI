@@ -5,6 +5,11 @@ const initialState = {
 export default (state = initialState, action) => {
   const {data, type} = action;
   switch (type) {
+    case "ADD_USER": 
+      return {
+        ...state,
+        users: [ ...state.users, data ]
+      }
     case "DELETE_USER":
       return {
         ...state,

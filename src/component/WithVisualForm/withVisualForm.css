@@ -1,0 +1,12 @@
+.contentWrapper {
+  border: 1px solid gray;
+  border-radius: 5px;
+}
+
+.menuContext {
+  align-items: center;
+  border-bottom: 1px solid black;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 30px;
+}

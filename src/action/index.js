@@ -1,6 +1,19 @@
 import axios from 'axios';
 import { baseUrl } from '../utility/constant';
 
+const addUser = data => {
+    return {
+        type: "ADD_USER",
+        data
+    };
+};
+
+export const addUserAPI = data => dispatch => {
+    return axios.post(baseUrl, data).then(() => {
+      dispatch(addUser(data));
+    });
+};
+
 const deleteUser = id => {
     return {
         type: "DELETE_USER",
