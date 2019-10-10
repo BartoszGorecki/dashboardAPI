@@ -17,10 +17,16 @@ class AddUser extends Component {
     static displayName = 'AddUser';
 
     state = {
+        addVersion: false,
         user: {
             name: '',
             email: ''
         }
+    }
+
+    componentDidMount = () => {
+        !this.props.selectedUser && this.setState({ addVersion: true });
+
     }
 
     goToMainPage = () => this.props.history.push('/');
@@ -29,12 +35,15 @@ class AddUser extends Component {
         this.setState({ user: { ...this.state.user, [name]: value } });
     }
 
-    submitFormHnadler = async e => {
+    submitFormHandler = async e => {
         e.preventDefault();
+        if (this.makingReq) return;
+        this.makingReq = true;
         const { user } = this.state;
         const id = generateRandomIndex();
         await this.props.addUserAPI({ ...user, id });
         this.goToMainPage();
+        this.makingReq = false;
     }
 
     renderBtnWrapper = () => {
@@ -73,7 +82,7 @@ class AddUser extends Component {
     render() {
         return (
             <>
-                <form onSubmit={this.submitFormHnadler}>
+                <form onSubmit={this.submitFormHandler}>
                     { this.renderInputs() }
                     { this.renderBtnWrapper() }
                 </form>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { deleteUserAPI, fetchUsersAPI } from '../../action';
+import { deleteUserAPI, fetchUsersAPI, setSelectedUser } from '../../action';
 import { tableHeader } from '../../utility/constant';
 import { confirmationText } from '../../utility/function';
 
@@ -18,7 +18,6 @@ export class UsersDashboard extends Component {
     static displayName = 'UserDashboard Page';
 
     state = {
-        selectedUser: null,
         showPortal: false
     }
 
@@ -26,25 +25,33 @@ export class UsersDashboard extends Component {
         this.props.users.length === 0 && this.props.fetchUsersAPI();
     }
 
-    closeModal = () => this.setState({ showPortal: false });
+    closeModal = () => {
+        this.setState({ showPortal: false });
+        this.props.setSelectedUser(null)
+    }
 
     deleteUser = async () => {
-        await this.props.deleteUserAPI(this.state.selectedUser.id);
-        this.setState({ showPortal: false });
+        if (this.makingReq) return;
+        this.makingReq = true;
+        const { deleteUserAPI, selectedUser, setSelectedUser } = this.props;
+        await deleteUserAPI(selectedUser.id);
+        this.setState({ showPortal: false }, () => setSelectedUser(null));
+        this.makingReq = false
     }
 
-    goToDeleteModal = user => {
-        this.setState({ selectedUser: user, showPortal: true });
+    goToDeleteModal = async user => {
+        await this.props.setSelectedUser(user);
+        this.setState({ showPortal: true });
     }
 
-    goToEditPage = user => {
-        this.setState({ selectedUser: user }, () => {
-            this.props.history.push('/edit');
-        });
+    goToEditPage = async user => {
+        const { history, setSelectedUser } = this.props;
+        await setSelectedUser(user);
+        history.push('/edit');
     }
 
     renderDeleteTextContext = () => {
-        const { username } = this.state.selectedUser;
+        const { username } = this.props.selectedUser;
         return (
             <div>{ confirmationText(username) }</div>
         )
@@ -115,9 +122,10 @@ export class UsersDashboard extends Component {
 }
 
 const mapStateToProps = state => ({
+    selectedUser: state.dashboard.selectedUser,
     users: state.dashboard.users
 });
 
 const wrappedUsersDashboard = WithVisualForm(UsersDashboard);
 
-export default connect(mapStateToProps, { deleteUserAPI, fetchUsersAPI })(wrappedUsersDashboard);
+export default connect(mapStateToProps, { deleteUserAPI, fetchUsersAPI, setSelectedUser })(wrappedUsersDashboard);

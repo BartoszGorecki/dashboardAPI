@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from "../store";
 import { baseUrl } from '../utility/constant';
 
 // addUser
@@ -32,14 +33,18 @@ const deleteUser = id => {
 // editUser
 export const EDIT_USER = 'EDIT_USER';
 export const editUserAPI = user => dispatch => {
-    return axios.put(baseUrl, user).then(({ data }) => {
+    const { id } = user;
+    return axios.put(`${baseUrl}/${id}`, user).then(({ data }) => {
       dispatch(editUser(data));
     });
 };
 const editUser = data => {
+    const users = store.getState().dashboard.users;
+    const index = users.findIndex(user => user.id === data.id);
     return {
         type: EDIT_USER,
-        data
+        data,
+        index
     };
 };
 

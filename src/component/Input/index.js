@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './input.css';
+
 const Input = ({ name, onChange, title, type, value }) => {
     return (  
         <div className="form-group">

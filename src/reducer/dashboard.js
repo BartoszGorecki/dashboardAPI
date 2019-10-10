@@ -6,7 +6,7 @@ const initialState = {
 };
   
 export default (state = initialState, action) => {
-  const {data, type} = action;
+  const {data, index, type} = action;
   switch (type) {
     case ADD_USER: 
       return {
@@ -19,9 +19,11 @@ export default (state = initialState, action) => {
         users: state.users.filter(user => user.id !== data)
       }
     case EDIT_USER:
+        const copyUsers = [ ...state.users ];
+        copyUsers.splice(index, 1, data);
       return {
         ...state,
-
+        users: copyUsers
       }
     case FETCH_USERS:
       return {
