@@ -8,6 +8,11 @@ export const addUserInputs = [
         name: 'email',
         title: 'Email',
         type: 'text'
+    },
+    {
+        name: 'username',
+        title: 'Username',
+        type: 'text'
     }
 ];
 

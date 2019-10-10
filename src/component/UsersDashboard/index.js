@@ -18,7 +18,9 @@ export class UsersDashboard extends Component {
     static displayName = 'UserDashboard Page';
 
     state = {
-        showPortal: false
+        setSort: false,
+        showPortal: false,
+        sortFromAtoZ: false
     }
 
     componentDidMount() {
@@ -50,6 +52,11 @@ export class UsersDashboard extends Component {
         history.push('/edit');
     }
 
+    sortTable = () => {
+        this.state.setSort ? this.setState({ sortFromAtoZ: !this.state.sortFromAtoZ }) :
+        this.setState({ setSort: true, sortFromAtoZ: !this.state.sortFromAtoZ});
+    }
+
     renderDeleteTextContext = () => {
         const { username } = this.props.selectedUser;
         return (
@@ -60,13 +67,24 @@ export class UsersDashboard extends Component {
     renderTableHeader = () => {
         return tableHeader.map(title => {
             return (
-                <th style={{ textTransform: 'capitalize' }} key={ title }>{ title }</th>
+                <th onClick={ title === 'username' ? () =>  this.sortTable() : null } style={{ textTransform: 'capitalize' }} key={ title }>{ title }</th>
             );
         });
     }
 
     renderTableData = () => {
-        return this.props.users.map(user => {
+        const { sortFromAtoZ, setSort } = this.state;
+        let usersData;
+        if (!setSort) {
+            usersData = this.props.users;
+        }
+        if (sortFromAtoZ && setSort) {
+            usersData = this.props.users.sort((a, b) => a.username.localeCompare(b.username));
+        }
+        if (!sortFromAtoZ && setSort) {
+            usersData = this.props.users.sort((a, b) => b.username.localeCompare(a.username));
+        }
+        return usersData.map(user => {
             return (
                 <tr key={ user.id }>
                     <td>{ user.id }</td>

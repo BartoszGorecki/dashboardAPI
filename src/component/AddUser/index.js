@@ -20,14 +20,12 @@ class AddUser extends Component {
         addVersion: false,
         user: {
             name: '',
-            email: ''
+            email: '',
+            username: ''
         }
     }
 
-    componentDidMount = () => {
-        !this.props.selectedUser && this.setState({ addVersion: true });
-
-    }
+    componentDidMount = () => !this.props.selectedUser && this.setState({ addVersion: true });
 
     goToMainPage = () => this.props.history.push('/');
 
