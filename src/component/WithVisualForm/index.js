@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+
 import Button from '../Button';
 
 import './withVisualForm.css';
 
 export default (Comp, title) => {
+
     return class extends Component{
 
         goToCreateUserPage = () => this.props.history.push('/add');

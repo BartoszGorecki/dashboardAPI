@@ -53,7 +53,7 @@ export class UsersDashboard extends Component {
     renderTableHeader = () => {
         return tableHeader.map(title => {
             return (
-                <th key={ title }>{ title }</th>
+                <th style={{ textTransform: 'capitalize' }} key={ title }>{ title }</th>
             );
         });
     }
@@ -64,9 +64,9 @@ export class UsersDashboard extends Component {
                 <tr key={ user.id }>
                     <td>{ user.id }</td>
                     <td>{ user.name }</td>
-                    <td>{ user.username ? user.username : <span style={{color: 'red'}}>{NO_DATA}</span> }</td>
+                    <td>{ user.username ? user.username : <span style={{ color: 'red' }}>{ NO_DATA }</span> }</td>
                     <td>{ user.email }</td>
-                    <td>{ user.address ? user.address.city : <span style={{color: 'red'}}>{NO_DATA}</span> }</td>
+                    <td>{ user.address ? user.address.city : <span style={{ color: 'red' }}>{ NO_DATA }</span> }</td>
                     <td>
                         <Button 
                             onClick={ () => this.goToEditPage(user) }

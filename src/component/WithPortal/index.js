@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import './withPortal.css';
 
-const withPortal = (Modal, data) => {
+const withPortal = Modal => {
   return class extends React.Component {
 
     constructor(props) {
