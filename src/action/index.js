@@ -5,8 +5,10 @@ import { baseUrl } from '../utility/constant';
 // addUser
 export const ADD_USER = "ADD_USER";
 export const addUserAPI = data => dispatch => {
-    return axios.post(baseUrl, data).then(() => {
-      dispatch(addUser(data));
+    return axios.post(baseUrl, data).then(({ status }) => {
+        if (status === 201) {
+            dispatch(addUser(data));
+        };
     });
 };
 const addUser = data => {
@@ -19,8 +21,10 @@ const addUser = data => {
 // deleteUser
 export const DELETE_USER = "DELETE_USER";
 export const deleteUserAPI = id => dispatch => {
-    return axios.delete(`${baseUrl}/${id}`).then(() => {
-      dispatch(deleteUser(id));
+    return axios.delete(`${baseUrl}/${id}`).then(({ status }) => {
+        if (status === 200) {
+            dispatch(deleteUser(id));
+        };
     });
 };
 const deleteUser = id => {
@@ -34,8 +38,10 @@ const deleteUser = id => {
 export const EDIT_USER = 'EDIT_USER';
 export const editUserAPI = user => dispatch => {
     const { id } = user;
-    return axios.put(`${baseUrl}/${id}`, user).then(({ data }) => {
-      dispatch(editUser(data));
+    return axios.put(`${baseUrl}/${id}`, user).then(({ data, status }) => {
+        if (status === 200) {
+            dispatch(editUser(data));
+        };
     });
 };
 const editUser = data => {
@@ -57,8 +63,10 @@ const setUsers = data => {
     };
 };
 export const fetchUsersAPI = () => dispatch => {
-    return axios.get(baseUrl).then(({ data }) => {
-      dispatch(setUsers(data));
+    return axios.get(baseUrl).then(({ data, status }) => {
+        if (status === 200) {
+            dispatch(setUsers(data));
+        };
     });
 };
 
