@@ -8,7 +8,7 @@ const Input = ({ formErrors, name, onChange, title, type, value }) => {
         <div className="form-group">
             <label htmlFor={ name } className="form-label">{ title }</label>
             <input
-                className="form-input"
+                className={ "form-input " + (!!formErrors[name] ? 'form-input-error' : '') }
                 id={ name }
                 name={ name }
                 type={ type }

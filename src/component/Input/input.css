@@ -21,6 +21,10 @@
   width: 65%;
 }
 
+.form-input-error {
+  border-color: red;
+}
+
 .form-label {
   align-items: center;
   display: flex;

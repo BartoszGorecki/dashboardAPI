@@ -1,1 +1,1 @@
-React/Redux/API in progress 10/2019
+React/Redux/API 10/2019
